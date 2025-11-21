@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sun Xinhao | Data & AI Portfolio</title>
+    <style>
+        /* --- 1. 极客风格定义 --- */
+        :root {
+            --bg-dark: #0f172a;      /* 深蓝黑背景 */
+            --bg-card: #1e293b;      /* 卡片背景 */
+            --accent: #38bdf8;       /* 亮蓝色 (Data Science) */
+            --accent-sec: #818cf8;   /* 紫色 (AI/Model) */
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        
+        /* --- 2. 导航与Hero区域 --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 2rem; max-width: 1200px; margin: 0 auto;
+        }
+        .logo { font-weight: 800; font-size: 1.5rem; background: linear-gradient(to right, var(--accent), var(--accent-sec)); -webkit-background-clip: text; color: transparent; }
+        .contact-btn {
+            border: 1px solid var(--accent); padding: 0.5rem 1.2rem; border-radius: 50px;
+            color: var(--accent); font-size: 0.9rem;
+        }
+        .contact-btn:hover { background: var(--accent); color: var(--bg-dark); box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
+
+        .hero {
+            min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 0 2rem;
+            background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
+        }
+        .tag {
+            background: rgba(56, 189, 248, 0.1); color: var(--accent); padding: 0.4rem 1rem; 
+            border-radius: 20px; font-size: 0.9rem; margin-bottom: 1.5rem; display: inline-block;
+        }
+        .hero h1 {
+            font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; font-weight: 800;
+        }
+        .hero h1 span { color: var(--text-sub); font-weight: 400; display: block; font-size: 1.5rem; margin-top: 1rem; }
+        .hero p { max-width: 600px; color: var(--text-sub); font-size: 1.1rem; margin-bottom: 2.5rem; }
+
+        /* --- 3. 核心数据 (Grid) --- */
+        .stats-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;
+            max-width: 1000px; margin: -50px auto 4rem; position: relative; z-index: 2;
+            padding: 0 2rem;
+        }
+        .stat-card {
+            background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(10px);
+            padding: 2rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);
+            text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .stat-num { font-size: 2.5rem; font-weight: 700; color: var(--accent); display: block; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 0.9rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- 4. 经历与项目 (不对称布局) --- */
+        .section { max-width: 1100px; margin: 6rem auto; padding: 0 2rem; }
+        .section-header { margin-bottom: 3rem; border-left: 4px solid var(--accent-sec); padding-left: 1.5rem; }
+        .section-header h2 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .section-header p { color: var(--text-sub); }
+
+        /* 项目卡片 */
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .project-card {
+            background: var(--bg-card); border-radius: 16px; padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s; border: 1px solid rgba(255,255,255,0.05);
+            position: relative; overflow: hidden;
+        }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); border-color: var(--accent); }
+        .project-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--accent-sec));
+        }
+        .project-role { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.5rem; display: inline-block; }
+        .project-title { font-size: 1.4rem; margin-bottom: 1rem; font-weight: 700; }
+        .project-tech { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .tech-tag { font-size: 0.75rem; padding: 2px 8px; background: rgba(255,255,255,0.1); border-radius: 4px; color: #cbd5e1; }
+        .project-desc { color: var(--text-sub); font-size: 0.95rem; margin-bottom: 1rem; }
+        .highlight { color: var(--text-main); font-weight: 600; }
+
+        /* --- 5. 教育背景 (极简列表) --- */
+        .edu-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .edu-school { font-size: 1.2rem; font-weight: 600; }
+        .edu-detail { color: var(--text-sub); font-size: 0.95rem; text-align: right; }
+
+        /* --- 6. 技能条 --- */
+        .skills-wrapper { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+        .skill-pill {
+            border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1.5rem; border-radius: 50px;
+            font-size: 1rem; transition: 0.3s; cursor: default;
+        }
+        .skill-pill:hover { border-color: var(--accent); color: var(--accent); background: rgba(56, 189, 248, 0.1); }
+
+        footer { text-align: center; padding: 4rem 0; color: var(--text-sub); font-size: 0.9rem; }
+        
+        /* 移动端 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .edu-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            .edu-detail { text-align: left; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">SUN.XH</div>
+        <a href="mailto:sunxinhao34@163.com" class="contact-btn">Get in Touch</a>
+    </nav>
+
+    <section class="hero">
+        <div class="tag">Yale University '26</div>
+        <h1>孙新皓 <br><span>Data Scientist & AI Engineer</span></h1>
+        <p>专注于量化传染病流行病学、大语言模型 (LLM) Agent 开发与金融量化分析。<br>擅长在复杂数据中构建数学模型，寻找最优解。</p>
+    </section>
+
+    <div class="stats-container">
+        <div class="stat-card">
+            <span class="stat-num">Top 5%</span>
+            <span class="stat-label">Yale 统计学排名</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-num">1/132</span>
+            <span class="stat-label">上海大学 专业排名</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-num">0.97</span>
+            <span class="stat-label">模型预测 R²</span>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="section-header">
+            <h2>Engineering & Research</h2>
+            <p>深度学习 · 大模型应用 · 量化金融</p>
+        </div>
+        
+        <div class="project-grid">
+            <div class="project-card">
+                <span class="project-role">AI Algorithm Engineer @ 上海大数据</span>
+                <div class="project-title">LLM & Agent 系统集成</div>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">LLM</span>
+                    <span class="tech-tag">Agent Workflow</span>
+                </div>
+                <p class="project-desc">深度参与大模型研发，设计并实现了多个智能体子系统。开发 SQL 智能问答插件，提升问答准确性约 <span class="highlight">28%</span>。优化公共数据分类蒸馏模型，识别准确率高达 <span class="highlight">92%</span>。</p>
+            </div>
+
+            <div class="project-card">
+                <span class="project-role">Data Analyst @ 国泰海通证券</span>
+                <div class="project-title">消费行业量化回测框架</div>
+                <div class="project-tech">
+                    <span class="tech-tag">Quant</span>
+                    <span class="tech-tag">Regression</span>
+                    <span class="tech-tag">Visualization</span>
+                </div>
+                <p class="project-desc">利用 Python 构建可复用的数据处理与回测框架。分析 CPI、PPI 及大宗商品指数对股价的影响。撰写数据驱动的研究报告，为投研部门提供因子择时参考。</p>
+            </div>
+
+            <div class="project-card">
+                <span class="project-role">Research @ Cambridge Summer School</span>
+                <div class="project-title">LSTM 混合模型股价预测</div>
+                <div class="project-tech">
+                    <span class="tech-tag">Deep Learning</span>
+                    <span class="tech-tag">CNN-BiLSTM</span>
+                    <span class="tech-tag">Attention</span>
+                </div>
+                <p class="project-desc">创新构建 CNN-BILSTM-GRU-attention 混合模型。在亚马逊近十年股价数据上验证，RMSE 达到 <span class="highlight">1.0546</span>，有效捕捉了复杂市场条件下的时空特征。</p>
+            </div>
+
+            <div class="project-card">
+                <span class="project-role">Research @ Yale/Shanghai</span>
+                <div class="project-title">COVID-19 传播动力学</div>
+                <div class="project-tech">
+                    <span class="tech-tag">SIRS Model</span>
+                    <span class="tech-tag">Statistics</span>
+                </div>
+                <p class="project-desc">利用变系数 SIRS 模型估计未确诊的无症状感染者数量。应用高斯核平滑减少统计偏差，优化疫情建模中的统计算法。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <h2>Education</h2>
+        </div>
+        <div class="edu-item">
+            <div class="edu-school">Yale University 耶鲁大学</div>
+            <div class="edu-detail">
+                <div>统计学 (量化传染病流行病学) | 2025 - 2026</div>
+                <div style="font-size: 0.85rem; color: var(--accent);">排名前 5%</div>
+            </div>
+        </div>
+        <div class="edu-item">
+            <div class="edu-school">Shanghai University 上海大学</div>
+            <div class="edu-detail">
+                <div>数学与应用数学 (钱伟长学院) | 2021 - 2025</div>
+                <div style="font-size: 0.85rem; color: var(--accent);">GPA 3.89/4.00 | 排名 1/132</div>
+            </div>
+        </div>
+        <div class="edu-item">
+            <div class="edu-school">University of Toronto 多伦多大学</div>
+            <div class="edu-detail">
+                <div>交换访学 (GPA 4.0/4.0) | 2024</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <h2>Technical Stack</h2>
+        </div>
+        <div class="skills-wrapper">
+            <div class="skill-pill">Python (NumPy, Pandas)</div>
+            <div class="skill-pill">R Language</div>
+            <div class="skill-pill">SQL</div>
+            <div class="skill-pill">C++</div>
+            <div class="skill-pill">Machine Learning</div>
+            <div class="skill-pill">JavaScript</div>
+            <div class="skill-pill">SAS</div>
+            <div class="skill-pill">LaTeX</div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Designed for Sun Xinhao.<br>Tel: 18917079256 | Email: sunxinhao34@163.com</p>
+    </footer>
+
+</body>
+</html>
